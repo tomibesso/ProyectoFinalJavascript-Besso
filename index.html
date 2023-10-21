@@ -8,37 +8,41 @@
 </head>
 <body>
     <header>
-
+        <img src="./images/logo-vivir-el-verde.png" alt="Logo Vivir El Verde">
     </header>
     <main>
         <h1>Cotizador de Riego</h1>
         <h3>Escribir las medidas en metros(Mts.). El precio es un estimativo teniendo en cuenta insumos y mano de obra.</h3>
-        <form id="formulario">
-            <input id="largoTerreno" type="text" placeholder="Largo del terreno" required>
-            <input id="anchoTerreno" type="text" placeholder="Ancho del terreno" required>
-            <button id="cotizar" type="submit">Cotizar</button>
-            <button id="borrar" type="reset">Borrar</button>
-            <button id="guardarRiegos" type="button">Guardar Riegos</button>
-            <button id="borrarUltimo" type="button">Borrar ultimo riego</button>
-
-            <div>
-                <label for="1Pago"><input id="1Pago" type="radio" name="cuotas">1 Pago</label>
-                <label for="3Cuotas"><input id="3Cuotas" type="radio" name="cuotas">3 Cuotas S/Interés</label>
-                <label for="6Cuotas"><input id="6Cuotas" type="radio"name="cuotas">6 Cuotas S/Interés</label>
-                <label for="9Cuotas"><input id="9Cuotas" type="radio"name="cuotas">9 Cuotas S/Interés</label>
-                <label for="12Cuotas"><input id="12Cuotas" type="radio"name="cuotas">12 Cuotas S/Interés</label>
+        <form id="formulario" class="formDatosRiego">
+            <input id="largoTerreno" type="text" placeholder="Largo del terreno (Mts.)" required>
+            <input id="anchoTerreno" type="text" placeholder="Ancho del terreno (Mts.)" required>
+            <div class="formDatosRiego_botones">
+                <button id="cotizar" type="submit">Cotizar</button>
+                <button id="borrar" type="reset">Borrar</button>
+                <button id="guardarRiegos" type="button">Guardar Riegos</button>
+                <button id="borrarUltimo" type="button">Borrar ultimo riego</button>
             </div>
         </form>
+        <div class="inputsCuotas">
+            <label for="1Pago"><input id="1Pago" type="radio" name="cuotas">1 Pago</label>
+            <label for="3Cuotas"><input id="3Cuotas" type="radio" name="cuotas">3 Cuotas S/Interés</label>
+            <label for="6Cuotas"><input id="6Cuotas" type="radio"name="cuotas">6 Cuotas S/Interés</label>
+            <label for="9Cuotas"><input id="9Cuotas" type="radio"name="cuotas">9 Cuotas S/Interés</label>
+            <label for="12Cuotas"><input id="12Cuotas" type="radio"name="cuotas">12 Cuotas S/Interés</label>
+        </div>
         <ul id="riegos"></ul>
 
-        <form>
-            <input type="text" placeholder="Ingrese su Nombre/s">
-            <input type="text" placeholder="Ingrese su Appelido/s">
-            <input type="text" placeholder="Ingrese un numero de Telefono">
-            <input type="text" placeholder="Ingrese su casilla de Correo Electrónico">
-
-            <button id="guardarDatosPersonales" type="submit">Guardar</button>
-            <button id="borrarDatosPersonales" type="reset" >Borrar</button>
+        <form class="formDatosPersonales">
+            <div class="formDatosPersonales_inputs">
+                <input type="text" placeholder="Ingrese su Nombre/s">
+                <input type="text" placeholder="Ingrese su Apelido/s">
+                <input type="text" placeholder="Ingrese un numero de Telefono">
+                <input type="text" placeholder="Ingrese su casilla de Correo Electrónico">
+            </div>
+            <div class="formDatosPersonales_botones">
+                <button id="guardarDatosPersonales" type="submit">Guardar</button>
+                <button id="borrarDatosPersonales" type="reset" >Borrar</button>
+            </div>
         </form>
     </main>
     <script src="./js/main.js"></script>

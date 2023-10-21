@@ -1,0 +1,93 @@
+header {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+
+    img {
+        height: 200px;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    h1 {
+      color: rgb(76, 141, 11);
+    }
+
+    h3 {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 300;
+        font-size: 1.2em;
+    }
+
+    .formDatosRiego {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+
+        input {
+            margin-bottom: 10px;
+            width: 20%;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        &_botones {
+            align-self: center;
+            margin-bottom: 20px ;
+
+            button {
+                border-radius: 5px;
+            }
+
+            button:hover {
+                background-color: rgb(65, 152, 7);
+            }
+        }
+    }
+
+    .inputsCuotas {
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+
+        label {
+            font-size: 1.1em;
+            padding: 10px;
+        }
+    }
+
+    .formDatosPersonales {
+        display: flex;
+        flex-direction: column;
+
+        &_inputs {
+            display: flex;
+            flex-direction: column;
+            width: 350px;
+            margin-bottom: 10px;
+
+            input {
+                margin-bottom: 5px;
+                border-radius: 5px;
+                height: 20px;
+            }
+        }
+
+        &_botones {
+            align-self: flex-end;
+
+            button {
+                border-radius: 5px;
+            }
+
+            button:hover {
+                background-color: rgb(65, 152, 7);
+            }
+        }
+    }
+}
