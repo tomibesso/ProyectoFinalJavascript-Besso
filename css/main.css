@@ -42,14 +42,15 @@ main .formDatosRiego_botones button {
 main .formDatosRiego_botones button:hover {
   background-color: rgb(65, 152, 7);
 }
-main .inputsCuotas {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
+main .opcionCuotas_lista {
+  border-radius: 5px;
+  border-width: 2px;
 }
-main .inputsCuotas label {
-  font-size: 1.1em;
-  padding: 10px;
+main .opcionCuotas_lista_opciones {
+  background-color: rgba(86, 227, 44, 0.496);
+}
+main .opcionCuotas select:hover {
+  background-color: rgba(134, 238, 23, 0.604);
 }
 main .formDatosPersonales {
   display: flex;

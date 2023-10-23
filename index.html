@@ -23,17 +23,19 @@
                 <button id="borrarUltimo" type="button">Borrar ultimo riego</button>
             </div>
         </form>
-        <div class="inputsCuotas">
-            <label for="1Pago"><input id="1Pago" type="radio" name="cuotas">1 Pago</label>
-            <label for="3Cuotas"><input id="3Cuotas" type="radio" name="cuotas">3 Cuotas S/Interés</label>
-            <label for="6Cuotas"><input id="6Cuotas" type="radio"name="cuotas">6 Cuotas S/Interés</label>
-            <label for="9Cuotas"><input id="9Cuotas" type="radio"name="cuotas">9 Cuotas S/Interés</label>
-            <label for="12Cuotas"><input id="12Cuotas" type="radio"name="cuotas">12 Cuotas S/Interés</label>
+        <div class="opcionCuotas">
+            <select name="select" class="opcionCuotas_lista">
+                <option class="opcionCuotas_lista_opciones" selected>1 Pago</option>
+                <option class="opcionCuotas_lista_opciones">3 Cuotas S/Interés</option>
+                <option class="opcionCuotas_lista_opciones">6 Cuotas S/Interés</option>
+                <option class="opcionCuotas_lista_opciones">9 Cuotas S/Interés</option>
+                <option class="opcionCuotas_lista_opciones">12 Cuotas S/Interés</option>
+            </select>
         </div>
         <ul id="riegos"></ul>
 
         <form class="formDatosPersonales">
-            <div class="formDatosPersonales_inputs">
+            <div id="formDatosCliente" class="formDatosPersonales_inputs">
                 <input type="text" placeholder="Ingrese su Nombre/s">
                 <input type="text" placeholder="Ingrese su Apelido/s">
                 <input type="text" placeholder="Ingrese un numero de Telefono">

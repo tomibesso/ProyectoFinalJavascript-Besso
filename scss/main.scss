@@ -50,16 +50,21 @@ main {
         }
     }
 
-    .inputsCuotas {
-        display: flex;
-        justify-content: center;
-        width: 100vw;
+    .opcionCuotas {
+        &_lista {
+            border-radius: 5px;
+            border-width: 2px;
 
-        label {
-            font-size: 1.1em;
-            padding: 10px;
+            &_opciones {
+                background-color: rgba(86, 227, 44, 0.496);
+            }
+        }
+
+        select:hover {
+            background-color: rgba(134, 238, 23, 0.604);
         }
     }
+
 
     .formDatosPersonales {
         display: flex;

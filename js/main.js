@@ -9,13 +9,13 @@ form.addEventListener('submit', agregarRiego);
 function agregarRiego(event) {
     event.preventDefault();
 
-    let formulario = event.target.children;
+    let formRiego = event.target.children;
 
     let medidasRiego = {
-        largo: formulario[0].value,
-        ancho: formulario[1].value,
-        area: formulario[0].value * formulario[1].value,
-        precio: ((formulario[0].value * formulario[1].value) + valorMetroCuadrado) * manoDeObra
+        largo: formRiego[0].value,
+        ancho: formRiego[1].value,
+        area: formRiego[0].value * formRiego[1].value,
+        precio: ((formRiego[0].value * formRiego[1].value) + valorMetroCuadrado) * manoDeObra
     }
 
     let nuevoRiego = document.createElement('li');
@@ -52,4 +52,37 @@ function actualizarLista() {
         nuevoRiego.innerText = `Largo: ${medidaRiego.largo}, Ancho: ${medidaRiego.ancho}, Area: ${medidaRiego.area}`;
         listaRiegos.append(nuevoRiego);
     });
+}
+
+
+
+// guardar datos del cliente
+
+let cliente = [];
+
+let formCliente = document.getElementById('formDatosCliente');
+
+formCliente.addEventListener('submit', agregarCliente);
+
+function agregarCliente(event) {
+    event.preventDefault();
+
+    let valoresCliente = event.target.getElementById('formDatosCliente').children;
+
+    let datosCliente = {
+        nombre: valoresCliente[0].value,
+        apellido: valoresCliente[1].value,
+        telefono: valoresCliente[2].value,
+        correo: valoresCliente[3].value
+    }
+
+    cliente.push(datosCliente);
+
+    document.getElementById('borrarDatosPersonales').click();
+}
+
+let btnGuardarCliente = document.getElementById('guardarDatosPersonales');
+
+btnGuardarCliente.onclick = ()=> {
+   localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
