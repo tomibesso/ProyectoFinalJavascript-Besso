@@ -60,14 +60,14 @@ function actualizarLista() {
 
 let cliente = [];
 
-let formCliente = document.getElementById('formDatosCliente');
+let formCliente = document.getElementById('formDatosPersonales');
 
 formCliente.addEventListener('submit', agregarCliente);
 
 function agregarCliente(event) {
     event.preventDefault();
 
-    let valoresCliente = event.target.getElementById('formDatosCliente').children;
+    let valoresCliente = event.target.children[0].children;
 
     let datosCliente = {
         nombre: valoresCliente[0].value,
@@ -86,3 +86,6 @@ let btnGuardarCliente = document.getElementById('guardarDatosPersonales');
 btnGuardarCliente.onclick = ()=> {
    localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
+
+
+// usar un operador logico para tirar un aviso cuando el cliente ya cargo sus datos una vez (revisar librerias, sweet alert)
