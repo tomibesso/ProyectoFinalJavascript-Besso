@@ -83,11 +83,9 @@ function agregarCliente(event) {
     localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
 
-let btnGuardarCliente = document.getElementById('guardarDatosPersonales');
 
-btnGuardarCliente.onclick = ()=> {
-   localStorage.setItem('listaClientes', JSON.stringify(cliente));
-}
+// usar un alert para indicar cuando el cliente ya cargo sus datos una vez (revisar librerias, swwet alert)
 
+// usar una notificacion para indicar que el cliente ingreso sus datos y se guardaron
 
-// usar un operador logico para tirar un aviso cuando el cliente ya cargo sus datos una vez (revisar librerias, sweet alert)
+// usar una notificacion para indicar que el cliente guardo sus riegos en el sessionstorage
