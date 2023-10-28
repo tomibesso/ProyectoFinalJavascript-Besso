@@ -79,6 +79,8 @@ function agregarCliente(event) {
     cliente.push(datosCliente);
 
     document.getElementById('borrarDatosPersonales').click();
+
+    localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
 
 let btnGuardarCliente = document.getElementById('guardarDatosPersonales');
