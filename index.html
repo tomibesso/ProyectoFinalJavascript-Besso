@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <!-- Mi CSS -->
     <link rel="stylesheet" href="./css/main.css">
     <title>Cotizador de Riego - Vivir El Verde</title>
 </head>
+
 <body>
     <header>
         <img src="./images/logo-vivir-el-verde.png" alt="Logo Vivir El Verde">
     </header>
     <main>
         <h1>Cotizador de Riego</h1>
-        <h3>Escribir las medidas en metros(Mts.). El precio es un estimativo teniendo en cuenta insumos y mano de obra.</h3>
+        <h3>Escribir las medidas en metros(Mts.). El precio es un estimativo teniendo en cuenta insumos y mano de obra.
+        </h3>
         <form id="formulario" class="formDatosRiego">
             <input id="largoTerreno" type="text" placeholder="Largo del terreno (Mts.)" required>
             <input id="anchoTerreno" type="text" placeholder="Ancho del terreno (Mts.)" required>
@@ -43,10 +49,16 @@
             </div>
             <div class="formDatosPersonales_botones">
                 <button id="guardarDatosPersonales" type="submit">Guardar</button>
-                <button id="borrarDatosPersonales" type="reset" >Borrar</button>
+                <button id="borrarDatosPersonales" type="reset">Borrar</button>
             </div>
         </form>
     </main>
+        <!-- Sweet Alert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <!-- Mi JS -->
     <script src="./js/main.js"></script>
 </body>
+
 </html>

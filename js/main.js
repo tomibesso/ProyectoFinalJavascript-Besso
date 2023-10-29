@@ -32,7 +32,31 @@ let btnGuardarRiegos = document.getElementById('guardarRiegos');
 
 btnGuardarRiegos.onclick = ()=>{
     sessionStorage.setItem('listaRiegos', JSON.stringify(riegos));
+
+    Toastify ({
+        text: 'Guardado exitosamente!',
+        duration: 1500,
+        style: {
+            background: 'rgb(65, 152, 7)',
+            fontFamily: 'sans-serif',
+            borderRadius: '10px'
+        }
+    }).showToast();
 }
+
+let btnCotizar = document.getElementById('cotizar');
+
+btnCotizar.addEventListener('click', ()=> {
+    Toastify({
+        text: 'Felicidades, cotizaste un nuevo riego!',
+        duration: 3000,
+        style: {
+            background: 'rgb(65, 152, 7)',
+            fontFamily: 'sans-serif',
+            borderRadius: '10px'
+        }
+    }).showToast();
+})
 
 let btnBorrarUltimo = document.getElementById('borrarUltimo');
 
@@ -83,9 +107,4 @@ function agregarCliente(event) {
     localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
 
-
-// usar un alert para indicar cuando el cliente ya cargo sus datos una vez (revisar librerias, swwet alert)
-
-// usar una notificacion para indicar que el cliente ingreso sus datos y se guardaron
-
-// usar una notificacion para indicar que el cliente guardo sus riegos en el sessionstorage
+// ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados.
