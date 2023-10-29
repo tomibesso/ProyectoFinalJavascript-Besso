@@ -31,31 +31,42 @@ function agregarRiego(event) {
 let btnGuardarRiegos = document.getElementById('guardarRiegos');
 
 btnGuardarRiegos.onclick = ()=>{
-    sessionStorage.setItem('listaRiegos', JSON.stringify(riegos));
+    const valorInput1 = document.getElementById('largoTerreno').value;
+    const valorInput2 = document.getElementById('anchoTerreno').value;
 
-    Toastify ({
-        text: 'Guardado exitosamente!',
-        duration: 1500,
-        style: {
-            background: 'rgb(65, 152, 7)',
-            fontFamily: 'sans-serif',
-            borderRadius: '10px'
-        }
-    }).showToast();
+    if (riegos.length > 0) {
+
+        sessionStorage.setItem('listaRiegos', JSON.stringify(riegos));
+
+        Toastify ({
+            text: 'Guardado exitosamente!',
+            duration: 1500,
+            style: {
+                background: 'rgb(65, 152, 7)',
+                fontFamily: 'sans-serif',
+                borderRadius: '10px'
+            }
+        }).showToast();
+    }
 }
 
 let btnCotizar = document.getElementById('cotizar');
 
 btnCotizar.addEventListener('click', ()=> {
-    Toastify({
-        text: 'Felicidades, cotizaste un nuevo riego!',
-        duration: 3000,
-        style: {
-            background: 'rgb(65, 152, 7)',
-            fontFamily: 'sans-serif',
-            borderRadius: '10px'
-        }
-    }).showToast();
+    const valorInput1 = document.getElementById('largoTerreno').value;
+    const valorInput2 = document.getElementById('anchoTerreno').value;
+
+    if (Number(valorInput1) && Number(valorInput2)) {
+        Toastify({
+            text: 'Felicidades, cotizaste un nuevo riego!',
+            duration: 3000,
+            style: {
+                background: 'rgb(65, 152, 7)',
+                fontFamily: 'sans-serif',
+                borderRadius: '10px'
+            }
+        }).showToast();
+    }
 })
 
 let btnBorrarUltimo = document.getElementById('borrarUltimo');
