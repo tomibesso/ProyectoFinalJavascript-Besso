@@ -18,14 +18,16 @@ function agregarRiego(event) {
         precio: ((formRiego[0].value * formRiego[1].value) + valorMetroCuadrado) * manoDeObra
     }
 
-    let nuevoRiego = document.createElement('li');
-    nuevoRiego.innerText = `Largo: ${medidasRiego.largo}Mts. Ancho: ${medidasRiego.ancho}Mts. Area: ${medidasRiego.area}M2. Precio: $${medidasRiego.precio}Ars.`;
-
-    document.querySelector('#riegos').append(nuevoRiego);
-
-    riegos.push(medidasRiego);
-
-    document.getElementById('borrar').click();
+    if (Number(formRiego[0].value) && Number(formRiego[1].value)) {
+        let nuevoRiego = document.createElement('li');
+        nuevoRiego.innerText = `Largo: ${medidasRiego.largo}Mts. - Ancho: ${medidasRiego.ancho}Mts. - Area: ${medidasRiego.area}M2. - Precio: $${medidasRiego.precio}Ars.`;
+    
+        document.querySelector('#riegos').append(nuevoRiego);
+    
+        riegos.push(medidasRiego);
+    
+        document.getElementById('borrar').click();
+    }
 }
 
 let btnGuardarRiegos = document.getElementById('guardarRiegos');
@@ -39,7 +41,7 @@ btnGuardarRiegos.onclick = ()=>{
         sessionStorage.setItem('listaRiegos', JSON.stringify(riegos));
 
         Toastify ({
-            text: 'Guardado exitosamente!',
+            text: '¡Guardado exitosamente!',
             duration: 1500,
             style: {
                 background: 'rgb(65, 152, 7)',
@@ -58,7 +60,7 @@ btnCotizar.addEventListener('click', ()=> {
 
     if (Number(valorInput1) && Number(valorInput2)) {
         Toastify({
-            text: 'Felicidades, cotizaste un nuevo riego!',
+            text: '¡Felicidades, cotizaste un nuevo riego!',
             duration: 3000,
             style: {
                 background: 'rgb(65, 152, 7)',
@@ -73,8 +75,30 @@ let btnBorrarUltimo = document.getElementById('borrarUltimo');
 
 btnBorrarUltimo.onclick = ()=>{
     if (riegos.length > 0) {
-        riegos.pop();
-        actualizarLista();
+        Swal.fire({
+            title: 'Atención',
+            text: 'Estas seguro que deseas borrar el ultimo riego?',
+            icon: 'warning',
+            confirmButtonText: 'Sí',
+            showDenyButton: true,
+            denyButtonText: 'No'
+          }).then((result) => {
+                if(result.isConfirmed) {
+                    riegos.pop();
+                    actualizarLista();
+
+                    Toastify({
+                        text: '¡Riego borrado!',
+                        duration: 2000,
+                        style: {
+                            background: 'rgb(220, 63, 63)',
+                            fontFamily: 'sans-serif',
+                            borderRadius: '10px'
+                        }
+                    }).showToast();
+                    }
+                }
+            )
     }
 }
 
@@ -84,7 +108,7 @@ function actualizarLista() {
 
     riegos.forEach((medidaRiego) => {
         let nuevoRiego = document.createElement('li');
-        nuevoRiego.innerText = `Largo: ${medidaRiego.largo}, Ancho: ${medidaRiego.ancho}, Area: ${medidaRiego.area}`;
+        nuevoRiego.innerText = `Largo: ${medidaRiego.largo}, Ancho: ${medidaRiego.ancho}, Area: ${medidaRiego.area}, Precio: ${medidaRiego.precio}Ars.`;
         listaRiegos.append(nuevoRiego);
     });
 }

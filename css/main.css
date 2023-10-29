@@ -45,12 +45,18 @@ main .formDatosRiego_botones button:hover {
 main .opcionCuotas_lista {
   border-radius: 5px;
   border-width: 2px;
+  margin-bottom: 10px;
 }
 main .opcionCuotas_lista_opciones {
   background-color: rgba(86, 227, 44, 0.496);
 }
 main .opcionCuotas select:hover {
   background-color: rgba(134, 238, 23, 0.604);
+}
+main #riegos li {
+  list-style-type: square;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.2em;
 }
 main .formDatosPersonales {
   display: flex;
