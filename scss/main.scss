@@ -1,10 +1,16 @@
+body {
+    background: rgb(102,251,63);
+    background: radial-gradient(circle, rgba(102,251,63,0.11537114845938379) 0%, rgba(31,253,14,0.45710784313725494) 100%);
+}
+
 header {
     display: flex;
     justify-content: center;
-    height: 200px;
+    height: 225px;
 
     img {
         height: 200px;
+        padding-top: 10px;
     }
 }
 
@@ -14,13 +20,21 @@ main {
     align-items: center;
   
     h1 {
-      color: rgb(76, 141, 11);
+      color: #7ea000;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
     }
 
     h3 {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-weight: 300;
         font-size: 1.2em;
+        text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .formDatosRiego {
@@ -31,8 +45,8 @@ main {
 
         input {
             margin-bottom: 10px;
-            width: 20%;
-            height: 20px;
+            width: 20vw;
+            height: 25px;
             border-radius: 5px;
         }
 
@@ -57,12 +71,12 @@ main {
             margin-bottom: 10px;
 
             &_opciones {
-                background-color: rgba(86, 227, 44, 0.496);
+                background-color: rgb(122, 230, 50);
             }
         }
 
         select:hover {
-            background-color: rgba(134, 238, 23, 0.604);
+            background-color: rgba(56, 182, 11, 0.896);
         }
     }
 
@@ -87,12 +101,13 @@ main {
             input {
                 margin-bottom: 5px;
                 border-radius: 5px;
-                height: 20px;
+                height: 30px;
             }
         }
 
         &_botones {
             align-self: flex-end;
+            margin-bottom: 15px;
 
             button {
                 border-radius: 5px;
