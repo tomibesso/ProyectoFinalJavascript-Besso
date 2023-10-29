@@ -135,11 +135,38 @@ function agregarCliente(event) {
         correo: valoresCliente[3].value
     }
 
-    cliente.push(datosCliente);
+    let listaClientes = JSON.parse(localStorage.getItem('listaClientes')) || [];
+
+    function clienteExiste(clienteNuevo, listaClientes) {
+        return listaClientes.some(function (clienteExistente) {
+            return (
+                clienteExistente.nombre === clienteNuevo.nombre &&
+                clienteExistente.apellido === clienteNuevo.apellido &&
+                clienteExistente.telefono === clienteNuevo.telefono &&
+                clienteExistente.correo === clienteNuevo.correo
+            );
+        });
+    }
+
+    if (clienteExiste(datosCliente, listaClientes)) {
+        Swal.fire({
+            title: '¡Ya existe!',
+            text: 'El cliente ya se registró anteriormente',
+            icon: 'info',
+            confirmButtonText: 'OK'
+          })
+    } else {
+        listaClientes.push(datosCliente);
+        localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
+        Swal.fire({
+            title: '¡Cliente registrado!',
+            text: 'El cliente ha sido registrado con éxito',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          })
+    }
 
     document.getElementById('borrarDatosPersonales').click();
-
-    localStorage.setItem('listaClientes', JSON.stringify(cliente));
 }
 
 // ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados.
