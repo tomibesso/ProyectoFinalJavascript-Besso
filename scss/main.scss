@@ -103,6 +103,16 @@ main {
                 border-radius: 5px;
                 height: 30px;
             }
+
+            input::placeholder {
+                position: absolute;
+                top: 1px;
+                left: 5px;
+            }
+
+            #mensajeCliente {
+                height: 100px;
+            }
         }
 
         &_botones {

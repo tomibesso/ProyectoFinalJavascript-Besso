@@ -86,6 +86,14 @@ main .formDatosPersonales_inputs input {
   border-radius: 5px;
   height: 30px;
 }
+main .formDatosPersonales_inputs input::placeholder {
+  position: absolute;
+  top: 1px;
+  left: 5px;
+}
+main .formDatosPersonales_inputs #mensajeCliente {
+  height: 100px;
+}
 main .formDatosPersonales_botones {
   align-self: flex-end;
   margin-bottom: 15px;

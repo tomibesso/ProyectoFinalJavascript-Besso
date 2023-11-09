@@ -160,7 +160,7 @@ function agregarCliente(event) {
         localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
         Swal.fire({
             title: '¡Cliente registrado!',
-            text: 'El cliente ha sido registrado con éxito',
+            text: 'El cliente ha sido registrado con éxito. En breve nos pondremos en contacto contigo.',
             icon: 'success',
             confirmButtonText: 'OK'
           })
@@ -169,4 +169,62 @@ function agregarCliente(event) {
     document.getElementById('borrarDatosPersonales').click();
 }
 
-// ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados.
+// usar fetch post para enviar los clientes a un archivo json
+
+emailjs.init("eyPu-i_puaahmtEzd");
+
+document.getElementById('guardarDatosPersonales').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const datosFormulario = {};
+    const inputs = document.querySelectorAll('.formDatosPersonales_inputs input');
+  
+    inputs.forEach(input => {
+        datosFormulario[input.id] = input.value;
+    });
+
+    enviarMail(datosFormulario);
+});
+
+function enviarMail(datosFormulario) {
+
+    const emailRemitente = datosFormulario.mailCliente;
+    const emailDestinatario = 'tomi.besso12@gmail.com'; 
+    const mensaje = datosFormulario.mensajeCliente;
+    const nombre = datosFormulario.nombreCliente;
+    const apellido = datosFormulario.apellidoCliente;
+    const telefono = datosFormulario.telefonoCliente;
+
+    const datosMail = {
+      service_id: 'service_p2rb67d',
+      template_id: 'contact_form',
+      user_id: 'eyPu-i_puaahmtEzd',
+      template_params: {
+        from_email: emailRemitente,
+        to_email: emailDestinatario,
+        mensaje: mensaje,
+        nombre: nombre,
+        apellido: apellido,
+        telefono: telefono
+      }
+    };
+  
+    fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datosMail)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Correo enviado con éxito');
+      } else {
+        alert('Error al enviar el correo');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+// ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados
