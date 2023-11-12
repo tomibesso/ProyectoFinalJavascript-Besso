@@ -23,19 +23,23 @@ function agregarRiego(event) {
         nuevoRiego.innerText = `Largo: ${medidasRiego.largo}Mts. - Ancho: ${medidasRiego.ancho}Mts. - Area: ${medidasRiego.area}M2. - Precio: $${medidasRiego.precio}Ars.`;
     
         document.querySelector('#riegos').append(nuevoRiego);
-    
         riegos.push(medidasRiego);
-    
         document.getElementById('borrar').click();
+        Toastify({
+            text: '¡Felicidades, cotizaste un nuevo riego!',
+            duration: 3000,
+            style: {
+                background: 'rgb(65, 152, 7)',
+                fontFamily: 'sans-serif',
+                borderRadius: '10px'
+            }
+        }).showToast();
     }
 }
 
 let btnGuardarRiegos = document.getElementById('guardarRiegos');
 
 btnGuardarRiegos.onclick = ()=>{
-    const valorInput1 = document.getElementById('largoTerreno').value;
-    const valorInput2 = document.getElementById('anchoTerreno').value;
-
     if (riegos.length > 0) {
 
         sessionStorage.setItem('listaRiegos', JSON.stringify(riegos));
@@ -51,25 +55,6 @@ btnGuardarRiegos.onclick = ()=>{
         }).showToast();
     }
 }
-
-let btnCotizar = document.getElementById('cotizar');
-
-btnCotizar.addEventListener('click', ()=> {
-    const valorInput1 = document.getElementById('largoTerreno').value;
-    const valorInput2 = document.getElementById('anchoTerreno').value;
-
-    if (Number(valorInput1) && Number(valorInput2)) {
-        Toastify({
-            text: '¡Felicidades, cotizaste un nuevo riego!',
-            duration: 3000,
-            style: {
-                background: 'rgb(65, 152, 7)',
-                fontFamily: 'sans-serif',
-                borderRadius: '10px'
-            }
-        }).showToast();
-    }
-})
 
 let btnBorrarUltimo = document.getElementById('borrarUltimo');
 
@@ -114,47 +99,54 @@ function actualizarLista() {
 }
 
 
-
 // guardar datos del cliente
 
 let cliente = [];
 
 let formCliente = document.getElementById('formDatosPersonales');
 
-formCliente.addEventListener('submit', agregarCliente);
-
-function agregarCliente(event) {
+formCliente.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    let valoresCliente = event.target.children[0].children;
+    const datosFormulario = {};
+    const inputs = document.querySelectorAll('.formDatosPersonales_inputs input');
 
-    let datosCliente = {
-        nombre: valoresCliente[0].value,
-        apellido: valoresCliente[1].value,
-        telefono: valoresCliente[2].value,
-        correo: valoresCliente[3].value
-    }
+    inputs.forEach(input => {
+        datosFormulario[input.id] = input.value;
+    });
 
+    agregarClienteAlLocalStorage(datosFormulario);
+    enviarMail(datosFormulario);
+});
+
+function clienteExiste(clienteNuevo, listaClientes) {
+
+    return listaClientes.some(function (clienteExistente) {
+        return (
+            clienteExistente.nombreCliente === clienteNuevo.nombre &&
+            clienteExistente.apellidoCliente === clienteNuevo.apellido &&
+            clienteExistente.telefonoCliente === clienteNuevo.telefono &&
+            clienteExistente.correoCliente === clienteNuevo.correo
+        );
+    });
+}
+
+function agregarClienteAlLocalStorage(datosCliente) {
     let listaClientes = JSON.parse(localStorage.getItem('listaClientes')) || [];
 
-    function clienteExiste(clienteNuevo, listaClientes) {
-        return listaClientes.some(function (clienteExistente) {
-            return (
-                clienteExistente.nombre === clienteNuevo.nombre &&
-                clienteExistente.apellido === clienteNuevo.apellido &&
-                clienteExistente.telefono === clienteNuevo.telefono &&
-                clienteExistente.correo === clienteNuevo.correo
-            );
-        });
+    // Verificar si listaClientes es un array
+    if (!Array.isArray(listaClientes)) {
+        listaClientes = [];
     }
+
 
     if (clienteExiste(datosCliente, listaClientes)) {
         Swal.fire({
-            title: '¡Ya existe!',
-            text: 'El cliente ya se registró anteriormente',
+            title: '¡Cliente Existente!',
+            text: 'El cliente ya se encuentra en nuestra base de datos.',
             icon: 'info',
             confirmButtonText: 'OK'
-          })
+        });
     } else {
         listaClientes.push(datosCliente);
         localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
@@ -163,68 +155,70 @@ function agregarCliente(event) {
             text: 'El cliente ha sido registrado con éxito. En breve nos pondremos en contacto contigo.',
             icon: 'success',
             confirmButtonText: 'OK'
-          })
+        });
+
+        document.getElementById('borrarDatosPersonales').click();
     }
-
-    document.getElementById('borrarDatosPersonales').click();
-}
-
-// usar fetch post para enviar los clientes a un archivo json
+}  
 
 emailjs.init("eyPu-i_puaahmtEzd");
 
-document.getElementById('guardarDatosPersonales').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    const datosFormulario = {};
-    const inputs = document.querySelectorAll('.formDatosPersonales_inputs input');
-  
-    inputs.forEach(input => {
-        datosFormulario[input.id] = input.value;
-    });
-
-    enviarMail(datosFormulario);
-});
-
 function enviarMail(datosFormulario) {
-
     const emailRemitente = datosFormulario.mailCliente;
-    const emailDestinatario = 'tomi.besso12@gmail.com'; 
+    const emailDestinatario = 'tomi.besso12@gmail.com';
     const mensaje = datosFormulario.mensajeCliente;
     const nombre = datosFormulario.nombreCliente;
     const apellido = datosFormulario.apellidoCliente;
     const telefono = datosFormulario.telefonoCliente;
 
     const datosMail = {
-      service_id: 'service_p2rb67d',
-      template_id: 'contact_form',
-      user_id: 'eyPu-i_puaahmtEzd',
-      template_params: {
-        from_email: emailRemitente,
-        to_email: emailDestinatario,
-        mensaje: mensaje,
-        nombre: nombre,
-        apellido: apellido,
-        telefono: telefono
-      }
+        service_id: 'service_p2rb67d',
+        template_id: 'contact_form',
+        user_id: 'eyPu-i_puaahmtEzd',
+        template_params: {
+            from_email: emailRemitente,
+            to_email: emailDestinatario,
+            mensaje: mensaje,
+            nombre: nombre,
+            apellido: apellido,
+            telefono: telefono,
+            riegos: JSON.stringify(riegos)  
+        }
     };
-  
+
     fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(datosMail)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosMail)
     })
-    .then(response => {
-      if (response.ok) {
-        alert('Correo enviado con éxito');
-      } else {
-        alert('Error al enviar el correo');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }
+        .then(response => {
+            if (response.ok) {
+                Toastify ({
+                    text: 'Pr',
+                    duration: 1500,
+                    style: {
+                        background: 'rgb(65, 152, 7)',
+                        fontFamily: 'sans-serif',
+                        borderRadius: '10px'
+                    }
+                }).showToast();
+            } else {
+                throw new Error('Error al enviar el correo');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al enviar el correo. Por favor, inténtalo nuevamente.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
+    }
+
+
+
 // ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados
