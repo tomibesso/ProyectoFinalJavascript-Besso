@@ -119,18 +119,6 @@ formCliente.addEventListener('submit', function (event) {
     enviarMail(datosFormulario);
 });
 
-function clienteExiste(clienteNuevo, listaClientes) {
-
-    return listaClientes.some(function (clienteExistente) {
-        return (
-            clienteExistente.nombreCliente === clienteNuevo.nombre &&
-            clienteExistente.apellidoCliente === clienteNuevo.apellido &&
-            clienteExistente.telefonoCliente === clienteNuevo.telefono &&
-            clienteExistente.correoCliente === clienteNuevo.correo
-        );
-    });
-}
-
 function agregarClienteAlLocalStorage(datosCliente) {
     let listaClientes = JSON.parse(localStorage.getItem('listaClientes')) || [];
 
@@ -139,8 +127,21 @@ function agregarClienteAlLocalStorage(datosCliente) {
         listaClientes = [];
     }
 
+    // Corregir la condición para llamar a clienteExiste y verificar el resultado
+    function clienteExiste(clienteNuevo, listaClientes) {
+        return listaClientes.some(function (clienteExistente) {
+            return (
+                clienteExistente.nombreCliente === clienteNuevo.nombreCliente &&
+                clienteExistente.apellidoCliente === clienteNuevo.apellidoCliente &&
+                clienteExistente.telefonoCliente === clienteNuevo.telefonoCliente &&
+                clienteExistente.mailCliente === clienteNuevo.mailCliente
+            );
+        });
+    }
 
+    // Corrección aquí: Llamar a clienteExiste con los parámetros adecuados
     if (clienteExiste(datosCliente, listaClientes)) {
+        console.log('Cliente existente:', datosCliente);
         Swal.fire({
             title: '¡Cliente Existente!',
             text: 'El cliente ya se encuentra en nuestra base de datos.',
@@ -148,6 +149,7 @@ function agregarClienteAlLocalStorage(datosCliente) {
             confirmButtonText: 'OK'
         });
     } else {
+        console.log('Nuevo cliente:', datosCliente);
         listaClientes.push(datosCliente);
         localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
         Swal.fire({
@@ -159,7 +161,8 @@ function agregarClienteAlLocalStorage(datosCliente) {
 
         document.getElementById('borrarDatosPersonales').click();
     }
-}  
+}
+
 
 emailjs.init("eyPu-i_puaahmtEzd");
 
