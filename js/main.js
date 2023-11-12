@@ -103,6 +103,47 @@ function actualizarLista() {
 
 let cliente = [];
 
+function agregarClienteAlLocalStorage(datosCliente) {
+    let listaClientes = JSON.parse(localStorage.getItem('listaClientes')) || [];
+    
+    // Verifica si listaClientes es un array
+    if (!Array.isArray(listaClientes)) {
+        listaClientes = [];
+    }
+       
+    function clienteExiste(clienteNuevo, listaClientes) {
+        return listaClientes.some(function (clienteExistente) {
+            return (
+                clienteExistente.nombreCliente === clienteNuevo.nombreCliente &&
+                clienteExistente.apellidoCliente === clienteNuevo.apellidoCliente &&
+                clienteExistente.telefonoCliente === clienteNuevo.telefonoCliente &&
+                clienteExistente.mailCliente === clienteNuevo.mailCliente
+            );
+        });
+    }
+    
+    if (clienteExiste(datosCliente, listaClientes)) {
+        Swal.fire({
+            title: '¡Cliente Existente!',
+            text: 'El cliente ya se encuentra en nuestra base de datos.',
+            icon: 'info',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        listaClientes.push(datosCliente);
+        localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
+        Swal.fire({
+            title: '¡Cliente registrado!',
+            text: 'El cliente ha sido registrado con éxito. En breve nos pondremos en contacto contigo.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+        enviarMail(datosCliente);
+        
+        document.getElementById('borrarDatosPersonales').click();
+    }
+}
+
 let formCliente = document.getElementById('formDatosPersonales');
 
 formCliente.addEventListener('submit', function (event) {
@@ -115,54 +156,8 @@ formCliente.addEventListener('submit', function (event) {
         datosFormulario[input.id] = input.value;
     });
 
-    agregarClienteAlLocalStorage(datosFormulario);
-    enviarMail(datosFormulario);
+    agregarClienteAlLocalStorage(datosFormulario);  
 });
-
-function agregarClienteAlLocalStorage(datosCliente) {
-    let listaClientes = JSON.parse(localStorage.getItem('listaClientes')) || [];
-
-    // Verificar si listaClientes es un array
-    if (!Array.isArray(listaClientes)) {
-        listaClientes = [];
-    }
-
-    // Corregir la condición para llamar a clienteExiste y verificar el resultado
-    function clienteExiste(clienteNuevo, listaClientes) {
-        return listaClientes.some(function (clienteExistente) {
-            return (
-                clienteExistente.nombreCliente === clienteNuevo.nombreCliente &&
-                clienteExistente.apellidoCliente === clienteNuevo.apellidoCliente &&
-                clienteExistente.telefonoCliente === clienteNuevo.telefonoCliente &&
-                clienteExistente.mailCliente === clienteNuevo.mailCliente
-            );
-        });
-    }
-
-    // Corrección aquí: Llamar a clienteExiste con los parámetros adecuados
-    if (clienteExiste(datosCliente, listaClientes)) {
-        console.log('Cliente existente:', datosCliente);
-        Swal.fire({
-            title: '¡Cliente Existente!',
-            text: 'El cliente ya se encuentra en nuestra base de datos.',
-            icon: 'info',
-            confirmButtonText: 'OK'
-        });
-    } else {
-        console.log('Nuevo cliente:', datosCliente);
-        listaClientes.push(datosCliente);
-        localStorage.setItem('listaClientes', JSON.stringify(listaClientes));
-        Swal.fire({
-            title: '¡Cliente registrado!',
-            text: 'El cliente ha sido registrado con éxito. En breve nos pondremos en contacto contigo.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-
-        document.getElementById('borrarDatosPersonales').click();
-    }
-}
-
 
 emailjs.init("eyPu-i_puaahmtEzd");
 
@@ -198,21 +193,12 @@ function enviarMail(datosFormulario) {
     })
         .then(response => {
             if (response.ok) {
-                Toastify ({
-                    text: 'Pr',
-                    duration: 1500,
-                    style: {
-                        background: 'rgb(65, 152, 7)',
-                        fontFamily: 'sans-serif',
-                        borderRadius: '10px'
-                    }
-                }).showToast();
+            console.log(response);
             } else {
-                throw new Error('Error al enviar el correo');
+                console.log("Error al enviar el mail");
             }
         })
         .catch(error => {
-            console.error('Error:', error);
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un problema al enviar el correo. Por favor, inténtalo nuevamente.',
@@ -222,6 +208,5 @@ function enviarMail(datosFormulario) {
         });
     }
 
-
-
 // ver opcion cuotas y realizar el calculo en base a la eleccion para mostrar en la lista de riegos cotizados
+
