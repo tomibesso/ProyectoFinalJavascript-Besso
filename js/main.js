@@ -189,7 +189,7 @@ function enviarMail(datosFormulario) {
             nombre: nombre,
             apellido: apellido,
             telefono: telefono,
-            riegos: JSON.stringify(riegos)  
+            riegos: riegos  
         }
     };
 
