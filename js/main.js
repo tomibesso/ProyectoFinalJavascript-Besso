@@ -11,16 +11,20 @@ function agregarRiego(event) {
 
     let formRiego = event.target.children;
 
+    let seleccionCuotas = document.getElementsByClassName('opcionCuotas_lista')[0];
+    let valorCuota = seleccionCuotas.value;
+
     let medidasRiego = {
         largo: formRiego[0].value,
         ancho: formRiego[1].value,
         area: formRiego[0].value * formRiego[1].value,
-        precio: ((formRiego[0].value * formRiego[1].value) + valorMetroCuadrado) * manoDeObra
+        precio: ((formRiego[0].value * formRiego[1].value) + valorMetroCuadrado) * manoDeObra,
+        precioEnCuotas: (((formRiego[0].value * formRiego[1].value) + valorMetroCuadrado) * manoDeObra) / valorCuota
     }
 
     if (Number(formRiego[0].value) && Number(formRiego[1].value)) {
         let nuevoRiego = document.createElement('li');
-        nuevoRiego.innerText = `Largo: ${medidasRiego.largo}Mts. - Ancho: ${medidasRiego.ancho}Mts. - Area: ${medidasRiego.area}M2. - Precio: $${medidasRiego.precio}Ars.`;
+        nuevoRiego.innerText = `Largo: ${medidasRiego.largo}Mts. - Ancho: ${medidasRiego.ancho}Mts. - Area: ${medidasRiego.area}M2. - Precio: $${medidasRiego.precio.toFixed(2)}Ars. - Precio en cuotas: $${medidasRiego.precioEnCuotas.toFixed(2)}Ars en ${valorCuota} cuota/s.`;
     
         document.querySelector('#riegos').append(nuevoRiego);
         riegos.push(medidasRiego);
@@ -91,9 +95,14 @@ function actualizarLista() {
     let listaRiegos = document.querySelector('#riegos');
     listaRiegos.innerHTML = '';
 
+    let seleccionCuotas = document.getElementsByClassName('opcionCuotas_lista')[0];
+    let valorCuota = seleccionCuotas.value; 
+
     riegos.forEach((medidaRiego) => {
+        medidaRiego.precioEnCuotas = (((parseFloat(medidaRiego.largo) * parseFloat(medidaRiego.ancho)) + valorMetroCuadrado) * manoDeObra) / valorCuota;
+
         let nuevoRiego = document.createElement('li');
-        nuevoRiego.innerText = `Largo: ${medidaRiego.largo}, Ancho: ${medidaRiego.ancho}, Area: ${medidaRiego.area}, Precio: ${medidaRiego.precio}Ars.`;
+        nuevoRiego.innerText = `Largo: ${medidaRiego.largo}Mts. - Ancho: ${medidaRiego.ancho}Mts. - Area: ${medidaRiego.area}M2. - Precio: $${medidaRiego.precio.toFixed(2)}Ars. - Precio en cuotas: $${medidaRiego.precioEnCuotas.toFixed(2)}Ars en ${valorCuota} cuotas.`;
         listaRiegos.append(nuevoRiego);
     });
 }

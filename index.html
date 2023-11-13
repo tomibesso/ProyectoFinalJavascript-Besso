@@ -32,12 +32,12 @@
             </div>
         </form>
         <div class="opcionCuotas">
-            <select name="select" class="opcionCuotas_lista">
-                <option class="opcionCuotas_lista_opciones" selected>1 Pago</option>
-                <option class="opcionCuotas_lista_opciones">3 Cuotas S/Interés</option>
-                <option class="opcionCuotas_lista_opciones">6 Cuotas S/Interés</option>
-                <option class="opcionCuotas_lista_opciones">9 Cuotas S/Interés</option>
-                <option class="opcionCuotas_lista_opciones">12 Cuotas S/Interés</option>
+            <select name="select" class="opcionCuotas_lista" onchange="actualizarLista()">
+                <option value="1" class="opcionCuotas_lista_opciones" selected>1 Pago</option>
+                <option value="3" class="opcionCuotas_lista_opciones">3 Cuotas S/Interés</option>
+                <option value="6" class="opcionCuotas_lista_opciones">6 Cuotas S/Interés</option>
+                <option value="9" class="opcionCuotas_lista_opciones">9 Cuotas S/Interés</option>
+                <option value="12" class="opcionCuotas_lista_opciones">12 Cuotas S/Interés</option>
             </select>
         </div>
         <ul id="riegos"></ul>
